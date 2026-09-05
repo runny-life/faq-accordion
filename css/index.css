@@ -61,10 +61,8 @@ main {
   background-repeat: no-repeat;
 }
 
-hr {
-  border: none;
-  height: 1px;
-  background-color: var(--color-purple-100);
+ul {
+  list-style: none;
 }
 
 .faq__summary {
@@ -108,12 +106,13 @@ hr {
   gap: 1.5rem;
 }
 
+.faq__card:not(:last-child) {
+  border-bottom: 1px solid var(--color-purple-100);
+}
+
 .faq__details {
   display: flex;
   flex-direction: column;
-}
-
-.faq__details[open] {
   gap: 1.5rem;
 }
 
@@ -183,17 +182,22 @@ hr {
   transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
   opacity 0.4s ease 0.05s,
   padding 0.4s ease;
-  padding: 0 20px;
+  padding: 0 0 0 0;
 }
 
 .faq__details.is-open .faq__answer-wrapper {
   max-height: 500px;
   opacity: 1;
-  padding: 0 20px 20px 20px;
+  padding: 0 0 1.5rem 0;
 }
 
 .faq__details.is-open .faq__answer {
   animation: fadeSlideIn 0.4s ease forwards;
+  opacity: 0;
+}
+
+.faq__details:not(.is-open) .faq__answer {
+  animation: none;
   opacity: 0;
 }
 

@@ -1,18 +1,21 @@
 const detailsElements = document.querySelectorAll(".faq__details");
 
-detailsElements.forEach(detail => {
-  detail.addEventListener("toggle", function () {
-    if (this.open) {
-      this.classList.add("is-open");
+function onToggleDetail() {
+  const isOpen = this.open;
+  this.querySelector("summary").setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-      detailsElements.forEach(other => {
-        if (other !== this && other.open) {
-          other.open = false;
-          other.classList.remove("is-open");
-        }
-      });
-    } else {
-      this.classList.remove("is-open");
-    }
-  })
+  if (isOpen) {
+    detailsElements.forEach(other => {
+      if (other !== this && other.open) {
+        other.open = false;
+        other.querySelector("summary").setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  this.classList.toggle("is-open", isOpen);
+}
+
+detailsElements.forEach(detail => {
+  detail.addEventListener("toggle", onToggleDetail)
 })
