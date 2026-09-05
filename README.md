@@ -1,109 +1,241 @@
-# Frontend Mentor - FAQ accordion
+# Frontend Mentor - FAQ Accordion Solution
 
-![Design preview for the FAQ accordion coding challenge](preview.jpg)
+This is a solution to
+the [FAQ accordion challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-wyfFdeBwBz).
+Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for checking out this front-end coding challenge.
+- [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+    - [Links](#links)
+- [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+    - [Continued development](#continued-development)
+    - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+## Overview
 
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+### The challenge
 
-## The challenge
-
-Your challenge is to build out this FAQ accordion and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
+Users should be able to:
 
 - Hide/Show the answer to a question when the question is clicked
 - Navigate the questions and hide/show answers using keyboard navigation alone
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
-### Want some support on the challenge? 
+### Screenshot
 
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+![Screenshot project Faq accordion](./screenshot.png)
 
-## Where to find everything
+### Links
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+- Solution URL: [GitHub](https://github.com/runny-life/faq-accordion)
+- Live Site URL: [GitHub Pages](https://runny-life.github.io/faq-accordion/)
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+## My process
 
-If you would like the Figma design file to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+### Built with
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- Mobile-first workflow
+- Vanilla JavaScript
+- Native `<details>` and `<summary>` elements
+- CSS animations and transitions
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+### What I learned
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+This project was a great opportunity to work with native HTML `<details>` and `<summary>` elements while maintaining
+full accessibility and custom styling. Here are some key takeaways:
 
-## Using AI coding assistants
+#### 1. Custom Styling of `<details>` and `<summary>`
 
-We've included two files to help you if you're using AI coding assistants (like Claude, GitHub Copilot, Cursor, etc.) while working on this challenge:
+The native disclosure widget comes with default browser styles that needed to be overridden:
 
-- `AGENTS.md` - Contains detailed instructions for AI assistants on how to help you with this challenge. It's tailored to this challenge's difficulty level, so the AI will provide guidance appropriate to your learning stage—offering more support for beginner challenges and encouraging more independence on advanced ones.
-- `CLAUDE.md` - A pointer file that directs Claude-based tools to the AGENTS.md instructions.
+```css
+.faq__summary {
+  list-style: none;
+}
 
-**How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
+.faq__summary::-webkit-details-marker {
+  display: none;
+}
+```
 
-**Note:** These files are designed to help you *learn*, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+#### 2. Custom Toggle Icon with CSS
 
-## Building your project
+Instead of using images or SVGs for the toggle icon, I created a plus/minus icon using pure CSS with pseudo-elements:
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+```css
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 1rem;
+  height: 0.125rem;
+  border-radius: 12px;
+  background-color: var(--color-white);
+}
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+.faq__icon::after {
+  rotate: 90deg;
+  transition: rotate 0.3s;
+}
 
-## Deploying your project
+.faq__details[open] .faq__icon::after {
+  rotate: 0deg;
+}
+```
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+#### 3. Smooth Height Animations
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+One of the challenges with `<details>` is that you can't animate the `height` property directly. I solved this by using
+a wrapper with `max-height` and `opacity` transitions:
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://www.frontendmentor.io/guides/hosting-your-solution).
+```css
+.faq__answer-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+  opacity 0.4s ease 0.05s,
+  padding 0.4s ease;
+  padding: 0 0 0 0;
+}
 
-## Create a custom `README.md`
+.faq__details.is-open .faq__answer-wrapper {
+  max-height: 500px;
+  opacity: 1;
+  padding: 0 0 1.5rem 0;
+}
+```
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+#### 4. Accordion Behavior (Only One Open at a Time)
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+Using JavaScript, I ensured that only one FAQ item can be open at a time. I also managed ARIA attributes for better
+accessibility:
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+```javascript
+function onToggleDetail() {
+  const isOpen = this.open;
+  this.querySelector("summary").setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-## Submitting your solution
+  if (isOpen) {
+    detailsElements.forEach(other => {
+      if (other !== this && other.open) {
+        other.open = false;
+        other.querySelector("summary").setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://www.frontendmentor.io/guides/how-to-submit-solutions) for tips on how to do this.
+  this.classList.toggle("is-open", isOpen);
+}
+```
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+#### 5. Responsive Typography with `clamp()`
 
-## Sharing your solution
+To create truly fluid typography, I used the `clamp()` function:
 
-There are multiple places you can share your solution:
+```css
+font-size:
 
-1. Share your solution page in the **#finished-projects** channel of our [community](https://www.frontendmentor.io/community).
-2. Share on [X (formerly Twitter)](https://x.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in your post. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on [LinkedIn](https://www.linkedin.com/company/frontend-mentor/).
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+clamp
+(
+0.875
+rem,
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+0.815
+rem +
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+0.254
+vw,
 
-## Got feedback for us?
+0.938
+rem
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+)
+;
+font-size:
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+clamp
+(
+2
+rem,
 
-**Have fun building!** 🚀
+0.569
+rem +
+
+6.107
+vw,
+
+3.5
+rem
+
+)
+;
+```
+
+#### 6. Keyboard Accessibility
+
+The native `<details>` element provides keyboard navigation out of the box. Users can:
+
+- Press `Enter` or `Space` to toggle the details
+- Use `Tab` to navigate between interactive elements
+
+#### 7. Hover and Focus States
+
+```css
+.faq__summary:focus-visible {
+  outline: 2px dashed var(--color-violet-600);
+  outline-offset: 4px;
+  transition-duration: 0s;
+}
+
+@media (hover: hover) {
+  .faq__summary:hover .faq__question {
+    color: var(--color-violet-600);
+  }
+}
+```
+
+### Continued development
+
+In future projects, I want to continue focusing on:
+
+1. **Accessibility Best Practices**: Ensuring that all interactive elements have proper ARIA attributes and keyboard
+   support
+2. **CSS Animations**: Creating more sophisticated and performant animations using CSS
+3. **Fluid Typography**: Mastering the use of `clamp()` and `calc()` for truly responsive designs
+4. **Form Accessibility**: Working with other form elements and ensuring they're fully accessible
+5. **Performance**: Optimizing CSS and JavaScript for better loading times
+
+### Useful resources
+
+- [MDN Web Docs: `<details>` and `<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) -
+  Comprehensive documentation on the native disclosure widget
+- [CSS `clamp()` Function](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) - For creating fluid typography and
+  responsive designs
+- [CSS `:focus-visible` Pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible) - For better
+  focus styling that works with keyboard navigation
+- [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) - For building accessible interactive components
+
+## Author
+
+- Website - [GitHub](https://github.com/runny-life)
+- Frontend Mentor - [@runny-life](https://www.frontendmentor.io/profile/runny-life)
+
+## Acknowledgments
+
+This project was completed as part of the Frontend Mentor challenge. The design and requirements were provided by
+Frontend Mentor. Special thanks to the Frontend Mentor community for providing feedback and inspiration.
