@@ -124,10 +124,17 @@ hr {
   gap: 1.5rem;
 }
 
+.faq__summary:focus-visible {
+  outline: 2px dashed var(--color-violet-600);
+  outline-offset: 4px;
+  transition-duration: 0s;
+}
+
 .faq__question {
   font-size: clamp(1rem, 0.881rem + 0.509vw, 1.125rem);
   font-weight: 600;
   color: var(--color-purple-950);
+  transition: color 0.2s;
 }
 
 .faq__icon {
@@ -182,5 +189,11 @@ hr {
 
   .faq__question {
     line-height: 1.17;
+  }
+}
+
+@media (hover: hover) {
+  .faq__summary:hover .faq__question {
+    color: var(--color-violet-600);
   }
 }
