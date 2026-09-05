@@ -1,0 +1,64 @@
+:root {
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-purple-100: #F8EEFF;
+  --color-purple-600: #8B6990;
+  --color-purple-950: #301534;
+  --color-viplet-600: #AD28EB;
+  --font-family-base: "Work Sans", sans-serif;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("../assets/fonts/static/WorkSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("../assets/fonts/static/WorkSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("../assets/fonts/static/WorkSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: clamp(0.875rem, 0.815rem + 0.254vw, 0.938rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-purple-600);
+  background-color: var(--color-purple-100);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--color-purple-100);
+}
+
+.faq__summary {
+  list-style: none;
+}
+
+.faq__summary::-webkit-details-marker {
+  display: none;
+}
